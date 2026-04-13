@@ -12,6 +12,10 @@ import (
 )
 
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
 	http.ServeFile(w, r, "github.com/Yandex-Practicum/go1fl-sprint6-final/index.html")
 }
 
@@ -51,7 +55,7 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
 	w.Write([]byte(convertedResult))
 
 }
